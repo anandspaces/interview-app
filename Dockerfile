@@ -17,10 +17,11 @@ WORKDIR /app
 # build-essential: for compiling some python extensions
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    libgl1-mesa-glx \
+    libgl1 \
     libglib2.0-0 \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
+
 
 # Copy requirements file (if you have one, otherwise we'll install manually or assume poetry)
 # Assuming requirements.txt exists at root or we create one
@@ -35,7 +36,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose the API port
-EXPOSE 8000
+EXPOSE 2000
 
 # Command to run the application
 CMD ["python", "main.py", "server"]

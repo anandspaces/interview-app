@@ -5,15 +5,13 @@ services:
       dockerfile: Dockerfile
     container_name: interview-backend
     ports:
-      - "9042:8000"
+      - "9042:2000"
     volumes:
       - ./data:/app/data
       - ./debug:/app/debug
       - ./models:/app/models
-    environment:
-      - API_PORT=8000
-      - API_HOST=0.0.0.0
-      - ENV_FILE=.env
+    env_file:
+      - ./.env
     restart: unless-stopped
     networks:
       - interview-net
@@ -21,7 +19,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     container_name: interview-frontend
     ports:
       - "9041:80"
