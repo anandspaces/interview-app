@@ -27,7 +27,6 @@ models/
 
 # Logs & Debug Output
 *.log
-*.txt
 debug/
 temp_check/
 frontend_debug_output.txt
