@@ -1,9 +1,36 @@
 services:
-  api:
-    build: .
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: interview-backend
     ports:
-      - "9042:2000"
-    env_file:
-      - .env
+      - "9042:8000"
     volumes:
-      - ./src:/app/src
+      - ./data:/app/data
+      - ./debug:/app/debug
+      - ./models:/app/models
+    environment:
+      - API_PORT=8000
+      - API_HOST=0.0.0.0
+      - ENV_FILE=.env
+    restart: unless-stopped
+    networks:
+      - interview-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: interview-frontend
+    ports:
+      - "9041:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - interview-net
+
+networks:
+  interview-net:
+    driver: bridge
