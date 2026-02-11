@@ -138,11 +138,11 @@ class Settings(BaseSettings):
     # ========================================================================
     
     llm_provider: Literal["openai", "anthropic", "ollama"] = Field(
-        default="openai",
+        default="ollama",
         description="LLM provider for analysis"
     )
     llm_model: str = Field(
-        default="gpt-4",
+        default="qwen2.5:1.5b",
         description="LLM model name"
     )
     llm_temperature: float = Field(
@@ -152,7 +152,7 @@ class Settings(BaseSettings):
         description="LLM temperature for generation"
     )
     llm_max_tokens: int = Field(
-        default=1000,
+        default=2000,
         ge=100,
         description="Maximum tokens for LLM response"
     )
